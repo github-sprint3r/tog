@@ -34,7 +34,7 @@ try{
 
 
 <h3> Building :
-<select class="combobox">
+<select class="combobox" id="buil">
   <option value = "0">-- select --</option>
   <%=optionss %>
 </select>
@@ -51,13 +51,9 @@ try{
  Floor :
 
 
-<select class="combobox">
-  <option></option>
-  <option value="PA">Pennsylvania</option>
-  <option value="CT">Connecticut</option>
-  <option value="NY">New York</option>
-  <option value="MD">Maryland</option>
-  <option value="VA">Virginia</option>
+<select class="combobox" id="floor" style="width: 200px">
+  <option>-- Select --</option>
+  
 </select>
 
 <script type="text/javascript">
@@ -127,5 +123,20 @@ catch(Exception e){
 	out.println("Error Connect!!!!!!" + e);
 }
 %>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	$("#buil").change(function (){
+		$.ajax({
+			  type: "POST",
+			  url: "getFloor.jsp",
+			  data: {"buil" : $("#buil").val()},
+			  dataType: "text",
+			  success: function(data){
+				  $("#floor").html(data);
+				  //alert(data);
+			  }
+			});
+	});
+</script>
 </body>
 </html>
