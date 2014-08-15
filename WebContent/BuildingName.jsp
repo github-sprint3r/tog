@@ -1,5 +1,7 @@
+<%@page import="javax.swing.text.html.Option"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@include file="condb.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,22 +13,30 @@
 <nav class="navbar navbar-default" role="navigation">
 <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-  <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-    Dropdown
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-    <li role="presentation" class="divider"></li>
-    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-  </ul>
-</div>
-    <!-- <input type="text" class="form-control" placeholder="Search"> -->
-  </div>
-  <a class="navbar-brand" href="#">Building Name</a>
+    <%
+    try{
+	Statement st;
+	String query = "select * from  CarPark.Building d  where isEnable=1";
+	st = conn.createStatement();
+	ResultSet rs = st.executeQuery(query);
+	String optionss = "<select> ";
+
+	 while(rs.next())
+	 {
+		 optionss += "<option value=\""+ rs.getString(2) + "\">"+rs.getString(2)+"</option>";
+	 } 
+	 optionss += "</select>";
+	 conn.close();
+	 out.print(optionss);
+%>
+	
+<%
+}
+catch(Exception e){
+	out.println("Error Connect!!!!!!" + e);
+}
+%>
+   <a class="navbar-brand" href="#">Building Name</a>
   <button type="submit" class="btn btn-default">Search</button>
   
   
