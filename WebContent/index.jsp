@@ -15,23 +15,16 @@ try{
 	String query = "select * from  CarPark.Building d  where isEnable=1";
 	st = conn.createStatement();
 	ResultSet rs = st.executeQuery(query);
-	String optionss = "<select> ";
+	String optionss = "";
 
 	 while(rs.next())
 	 {
 		 optionss += "<option value=\""+ rs.getString(1) +"\">" + rs.getString(2) + "</option>";
 	 } 
-	 optionss += "</select>";
 	 conn.close();
-	 out.print(optionss);
 %>
 	
-<%
-}
-catch(Exception e){
-	out.println("Error Connect!!!!!!" + e);
-}
-%>
+
 
  <h1> TOG car park <small> (Thaiopticalgroup) </small></h1> 
 
@@ -41,15 +34,9 @@ catch(Exception e){
 
 
 <h3> Building :
-
-
-<select class="combobox">
-  <option></option>
-  <option value="PA">Pennsylvania</option>
-  <option value="CT">Connecticut</option>
-  <option value="NY">New York</option>
-  <option value="MD">Maryland</option>
-  <option value="VA">Virginia</option>
+<select class="combobox" id="buil">
+  <option value = "0">-- select --</option>
+  <%=optionss %>
 </select>
 
 <script type="text/javascript">
@@ -64,13 +51,9 @@ catch(Exception e){
  Floor :
 
 
-<select class="combobox">
-  <option></option>
-  <option value="PA">Pennsylvania</option>
-  <option value="CT">Connecticut</option>
-  <option value="NY">New York</option>
-  <option value="MD">Maryland</option>
-  <option value="VA">Virginia</option>
+<select class="combobox" id="floor" style="width: 200px">
+  <option>-- Select --</option>
+  
 </select>
 
 <script type="text/javascript">
@@ -134,8 +117,26 @@ catch(Exception e){
                       
 </TABLE>
 
-
-
-
+<%
+}
+catch(Exception e){
+	out.println("Error Connect!!!!!!" + e);
+}
+%>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+	$("#buil").change(function (){
+		$.ajax({
+			  type: "POST",
+			  url: "getFloor.jsp",
+			  data: {"buil" : $("#buil").val()},
+			  dataType: "text",
+			  success: function(data){
+				  $("#floor").html(data);
+				  //alert(data);
+			  }
+			});
+	});
+</script>
 </body>
 </html>
