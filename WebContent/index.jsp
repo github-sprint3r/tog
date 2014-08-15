@@ -9,6 +9,7 @@
 <title>Car Park</title>
 </head>
 <body>
+<form id="form1" name="form1" method="post">
 <%
 try{
 	Statement st;
@@ -45,33 +46,20 @@ try{
   });
 </script>
 
-
-
-
  Floor :
-
 
 <select class="combobox" id="floor" style="width: 200px">
   <option>-- Select --</option>
-  
 </select>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.combobox').combobox();
-  });
-</script>
+<input type="submit" class="btn btn-default" width="30" name="send" value="Search" />
 
+</h3>
 
-<button type="button" class="btn btn-default" width="30" > Search </button>
-
-
-</h3> 
-
-<TABLE width = "80%"  >
-	<TD bgcolor = "FFFFFF" width="50" height="50" >  </TD>
-</TABLE>
-
+<%
+	if(request.getParameter("send") != null){
+		
+%>
  <TABLE width = "80%" border = "4" bordercolor="blue"  >
       <TR bgcolor = "FFCCFF">                              
 		<TD  width="20" height="100" >  </TD>
@@ -97,9 +85,7 @@ try{
 
 	
  <TABLE width = "80%" border = "4" bordercolor="blue" height="100"  >
-
 	<TR bgcolor = "FFCCFF">     
-
 		<TD width="20" >  </TD>
 		<TD width="20"  >  </TD>
 		<TD  width="20"  >  </TD>
@@ -110,13 +96,11 @@ try{
 		<TD  width="20" >  </TD>
 		<TD width="20" >  </TD>
 		<TD  width="20"  >  </TD>
-
-
-	</TR>  
-	
-                      
+	</TR>                 
 </TABLE>
 
+</form>
+<% } %>
 <%
 }
 catch(Exception e){
